@@ -54,9 +54,11 @@ spring:
   profiles: it
   main:
     allow-bean-definition-overriding: true
+  http:
+    log-request-details: true
 
-
-
-
+logging:
+  level:
+    org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
 
 
