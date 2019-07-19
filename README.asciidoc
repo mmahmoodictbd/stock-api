@@ -1,4 +1,4 @@
-# Stock Exchange APIs
+# Stock APIs
 
 
 ###### Motivation
