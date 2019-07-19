@@ -48,6 +48,7 @@
         <rest-assured.version>3.3.0</rest-assured.version>
         <hamcrest.version>2.1</hamcrest.version>
         <pitest-maven.version>1.4.6</pitest-maven.version>
+        <cassandra.unit.version>3.11.2.0</cassandra.unit.version>
 
         <skipTests>false</skipTests>
         <skip.surefire.tests>${skipTests}</skip.surefire.tests>
@@ -138,6 +139,19 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cassandraunit</groupId>
+            <artifactId>cassandra-unit</artifactId>
+            <version>${cassandra.unit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.cassandraunit</groupId>
+            <artifactId>cassandra-unit-spring</artifactId>
+            <version>${cassandra.unit.version}</version>
             <scope>test</scope>
         </dependency>
 
