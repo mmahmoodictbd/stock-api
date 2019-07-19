@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 /**
- * DTO class to return temperature reporting data as HTTP response.
+ * DTO class to return stock data as HTTP response.
  */
 @Data
 @Builder

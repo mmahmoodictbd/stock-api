@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * DTO class to return status if data collection process is successful or not as HTTP response.
+ * DTO class to return stocks as HTTP response.
  */
 @Data
 @Builder
