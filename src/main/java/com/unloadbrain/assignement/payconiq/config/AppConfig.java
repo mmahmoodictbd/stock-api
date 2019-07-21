@@ -1,5 +1,6 @@
 package com.unloadbrain.assignement.payconiq.config;
 
+import com.unloadbrain.assignement.payconiq.util.DateTimeUtil;
 import com.unloadbrain.assignement.payconiq.util.UuidUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,4 +17,10 @@ public class AppConfig {
     public UuidUtil uuidUtil() {
         return new UuidUtil();
     }
+
+    @Bean
+    public DateTimeUtil dateTimeUtil() {
+        return new DateTimeUtil();
+    }
+
 }
