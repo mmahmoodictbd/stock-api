@@ -1,0 +1,34 @@
+# Stock Dashboard
+
+Stock Dashboard Angular app. Showing stock list. Base UI is copied from https://github.com/Chumbok/ui-kit[here].
+
+image::../docs/images/angular-app.png[angular-app screenshot]
+
+
+### How to run
+
+
+###### Prerequisite
+- NPM (Tested with 6.2.0)
+- Angular CLI (Tested with 6.1.2)
+- Node (Tested with 11.6.0)
+
+###### Build
+```
+$ npm install
+```
+
+###### Run
+```
+$ ng serve
+```
+
+
+### Improvements to make
+- Stock list pagination is *not* done.
+
+
+### Copyright & License
+
+Licensed under the MIT License, see the link:LICENSE[LICENSE] file for details.
+

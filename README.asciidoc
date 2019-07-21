@@ -16,6 +16,8 @@ Stock APIs provides
 
 - Scalable and highly available NoSQL data store.
 
+- Made a sample UI, go to the `frontend-angular-app` directory and follow the readme.
+
 
 image::docs/images/sequence-diagram.png[sequence-diagram screenshot]
 
@@ -140,6 +142,7 @@ example response
 
 - According to assignment, the list of stocks should be created in memory on application startup.
   * Did not do it because in-memory cache could cause cache consistency problem during scaling.
+  * Added dummy data on dev profile to demo purpose.
 
 - Authentication and authorization is not taking into consideration.
 
