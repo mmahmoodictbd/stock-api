@@ -19,7 +19,6 @@ import org.springframework.data.domain.Slice;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,7 +50,7 @@ public class StockPersistenceServiceTest {
         // Given
 
         Stock stock = Stock.builder()
-                .id(UUID.fromString("700247b2-26e0-4229-b8ae-f7c1e2ea78e7"))
+                .id("700247b2-26e0-4229-b8ae-f7c1e2ea78e7")
                 .name("Apple")
                 .currentPrice(BigDecimal.ONE)
                 .lastUpdate(100L)
@@ -81,7 +80,7 @@ public class StockPersistenceServiceTest {
         // Given
 
         Stock existingStock = Stock.builder()
-                .id(UUID.fromString("700247b2-26e0-4229-b8ae-f7c1e2ea78e7"))
+                .id("700247b2-26e0-4229-b8ae-f7c1e2ea78e7")
                 .name("Apple")
                 .currentPrice(BigDecimal.ONE)
                 .lastUpdate(100L)
@@ -141,7 +140,7 @@ public class StockPersistenceServiceTest {
         assertEquals("700247b2-26e0-4229-b8ae-f7c1e2ea78e7", identityResponse.getId());
 
         verify(stockRepositoryMock).save(stockArgumentCaptor.capture());
-        assertEquals(UUID.fromString("700247b2-26e0-4229-b8ae-f7c1e2ea78e7"), stockArgumentCaptor.getValue().getId());
+        assertEquals("700247b2-26e0-4229-b8ae-f7c1e2ea78e7", stockArgumentCaptor.getValue().getId());
         assertEquals("Apple", stockArgumentCaptor.getValue().getName());
         assertEquals(BigDecimal.TEN, stockArgumentCaptor.getValue().getCurrentPrice());
         assertEquals(100L, stockArgumentCaptor.getValue().getLastUpdate());
@@ -160,7 +159,7 @@ public class StockPersistenceServiceTest {
                 .build();
 
         Stock existingStock = Stock.builder()
-                .id(UUID.fromString("700247b2-26e0-4229-b8ae-f7c1e2ea78e7"))
+                .id("700247b2-26e0-4229-b8ae-f7c1e2ea78e7")
                 .name("Apple")
                 .currentPrice(BigDecimal.ONE)
                 .lastUpdate(100L)
