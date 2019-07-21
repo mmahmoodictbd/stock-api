@@ -134,7 +134,12 @@ example response
 
 ### Design Decisions
 
-- Stock Id became String instead of int. Type 4 UUID is decided intentionally.
+- According to assignment, Stock Id should be number.
+  * Choose String instead of long / int. Type 4 UUID create hard to predict id, better than predictable number id.
+  * Usually better that number but has it's own flaw. Just a choice.
+
+- According to assignment, the list of stocks should be created in memory on application startup.
+  * Did not do it because in-memory cache could cause cache consistency problem during scaling.
 
 - Authentication and authorization is not taking into consideration.
 
