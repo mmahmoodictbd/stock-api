@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 public class AkkaSpringExtensionTest {
 
     @Test
-    public void shouldReturnStockActor() {
+    public void shouldReturnAkkaSpringExtension() {
 
         // Given
 
