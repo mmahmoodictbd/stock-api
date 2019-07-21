@@ -14,11 +14,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.cassandra.core.query.CassandraPageRequest;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -54,6 +55,10 @@ public class StockPersistenceService {
         Slice<Stock> slice = stockRepository.findAll(CassandraPageRequest.first(pageSize));
 
         int currentPage = 0;
+        if (!slice.hasNext() && currentPage < pageNo) {
+            return new SliceImpl<>(Collections.emptyList());
+        }
+
         while (slice.hasNext() && currentPage < pageNo) {
             slice = stockRepository.findAll(slice.nextPageable());
             currentPage++;
@@ -105,7 +110,7 @@ public class StockPersistenceService {
     public IdentityResponse createStock(CreateStockRequest createStockRequest) {
 
         Stock stock = Stock.builder()
-                .id(UUID.fromString(uuidUtil.getRandomUuid()))
+                .id(uuidUtil.getRandomUuid())
                 .name(createStockRequest.getName())
                 .currentPrice(createStockRequest.getCurrentPrice())
                 .lastUpdate(dateTimeUtil.getCurrentTimeEpochMilli())
