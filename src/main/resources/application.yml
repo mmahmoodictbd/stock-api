@@ -1,0 +1,64 @@
+### Common
+
+spring:
+
+  application:
+    name: StockAPI
+  profiles:
+    active: dev
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+app:
+  akka:
+    ask-timeout-in-millis: 10000
+  cassandra:
+    contactpoints: 127.0.0.1
+    port: 9042
+    keyspace: stockapi
+    basepackages: com.unloadbrain
+
+logging:
+  level:
+    root: INFO
+
+---
+
+### Dev profile
+
+spring:
+  profiles: dev
+
+logging:
+  level:
+    com.unloadbrain: DEBUG
+
+---
+
+### Prod profile
+
+spring:
+  profiles: prod
+
+logging:
+  level:
+    com.unloadbrain: INFO
+
+---
+
+### Integration test profile
+
+spring:
+  profiles: it
+  main:
+    allow-bean-definition-overriding: true
+  http:
+    log-request-details: true
+
+logging:
+  level:
+    org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
+
+

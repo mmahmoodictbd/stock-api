@@ -3,7 +3,193 @@
 
 ###### Motivation
 
-This project is an assignment.
+This project is an assignment. Implemented code would be a nice example of Stock data APIs.
+
+
+### Features
+
+Stock APIs provides
+
+- Create, update and fetch stock data using HTTP endpoints.
+
+- Used AKKA to achieve fine grained control of the consistency level for reads and writes.
+
+- Scalable and highly available NoSQL data store.
+
+- Made a sample UI, go to the `frontend-angular-app` directory and follow the readme.
+
+
+image::docs/images/sequence-diagram.png[sequence-diagram screenshot]
+
+
+### How to run
+
+
+###### Prerequisite
+- JDK 1.8 (Tested with Oracle JDK)
+- Maven 3.6.x+
+- Docker (18.09.2), Docker Compose (1.23.2)
+
+###### Run Cassandra in Docker
+```
+$ docker-compose up
+```
+
+###### Build
+```
+$ mvn clean compile install
+```
+
+###### Run
+```
+$ java -jar target/stock-api-1.0.0.jar
+```
+or
+```
+$ mvn spring-boot:run
+```
+
+###### Quick test
+
+Create Stock
+```
+curl -X POST localhost:8080/api/stocks \
+-H 'Content-Type: application/json' \
+-d '{ "name": "Apple", "currentPrice": 10.0 }'
+```
+example response
+```
+{"id":"b9ee0544-1a4d-4ae5-b22e-3a05e4c4c6f1"}
+```
+
+Get first page of Stocks
+```
+curl -X GET localhost:8080/api/stocks \
+-H 'Content-Type: application/json'
+```
+example response
+```
+{
+   "data":[
+      {
+         "id":"b9ee0544-1a4d-4ae5-b22e-3a05e4c4c6f1",
+         "name":"Apple",
+         "currentPrice":10.0,
+         "lastUpdate":1563738072242
+      }
+   ],
+   "pageNo":0,
+   "pageSize":10
+}
+```
+
+Get second page of Stocks
+```
+curl -X GET 'http://localhost:8080/api/stocks?pageNo=1&pageSize=10' \
+-H 'Content-Type: application/json'
+```
+example response
+```
+{
+   "data":[
+
+   ],
+   "pageNo":1,
+   "pageSize":10
+}
+
+```
+
+Get stock by id
+```
+curl -X GET 'http://localhost:8080/api/stocks/b9ee0544-1a4d-4ae5-b22e-3a05e4c4c6f1' \
+-H 'Content-Type: application/json'
+```
+example response
+```
+{
+   "id":"b9ee0544-1a4d-4ae5-b22e-3a05e4c4c6f1",
+   "name":"Apple",
+   "currentPrice":10.0,
+   "lastUpdate":1563738072242
+}
+
+```
+
+Update Stock by id
+```
+curl -X PUT 'http://localhost:8080/api/stocks/b9ee0544-1a4d-4ae5-b22e-3a05e4c4c6f1' \
+-H 'Content-Type: application/json' \
+-d '{ "name": "Apple Inc", "currentPrice": 20.0 }'
+```
+example response
+```
+{
+   "id":"b9ee0544-1a4d-4ae5-b22e-3a05e4c4c6f1",
+   "name":"Apple Inc",
+   "currentPrice":20.0,
+   "lastUpdate":1563741056100
+}
+
+```
+
+
+### Design Decisions
+
+- According to assignment, Stock Id should be number.
+  * Choose String instead of long / int. Type 4 UUID create hard to predict id, better than predictable number id.
+  * Usually better that number but has it's own flaw. Just a choice.
+
+- According to assignment, the list of stocks should be created in memory on application startup.
+  * Did not do it because in-memory cache could cause cache consistency problem during scaling.
+  * Added dummy data on dev profile to demo purpose.
+
+- Authentication and authorization is not taking into consideration.
+
+- AKKA creates mailbox (queue) that perform action on data. Provides fine grained control over reads and writes of current price of stocks.
+
+- NoSQL data store is an obvious choice. Cassandra provides high scalability and availability.
+
+- Choose Reactive REST endpoint with Spring WebFlux because AKKA is already reactive and it consumes less resource.
+
+
+### Development
+##### How to run tests
+
+###### How to run unit tests
+To run the unit tests, execute the following commands
+```
+mvn clean test-compile test
+```
+
+###### How to run integration tests
+To run the integration tests, execute the following commands
+```
+mvn clean test-compile verify -DskipTests=true
+```
+
+###### How to run both unit tests and integration tests
+To run the integration tests, execute the following commands
+```
+mvn clean test-compile verify
+```
+
+###### How to run pitest
+To run the mutation tests, execute the following commands
+```
+mvn clean test-compile test
+mvn org.pitest:pitest-maven:mutationCoverage
+```
+
+
+### Improvements to make
+- Improve architectural design, completed the project in 12 hours.
+- Code improvements
+  * Type casting in REST controller and in StockActor is not nice, need to fix it. First time working with AKKA and WebFlux.
+  * Use Cassandra with reactive spring repository.
+- Build docker image (plugin already added in the pom).
+- Generate and check OWASP report.
+- Improve code coverage, e.g. adding end-to-end tests.
 
 
 ### Copyright & License
