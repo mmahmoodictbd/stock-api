@@ -4,15 +4,13 @@ import akka.actor.AbstractExtensionId;
 import akka.actor.ExtendedActorSystem;
 import akka.actor.Extension;
 import akka.actor.Props;
+import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
 
+@AllArgsConstructor
 public class AkkaSpringExtension extends AbstractExtensionId<AkkaSpringExtension.SpringExt> {
 
     private final ApplicationContext applicationContext;
-
-    public AkkaSpringExtension(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 
     @Override
     public SpringExt createExtension(ExtendedActorSystem system) {
