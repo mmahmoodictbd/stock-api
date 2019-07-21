@@ -2,18 +2,14 @@ package com.unloadbrain.assignement.payconiq.akka;
 
 import akka.actor.Actor;
 import akka.actor.IndirectActorProducer;
+import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
 
+@AllArgsConstructor
 public class SpringActorProducer implements IndirectActorProducer {
 
     private ApplicationContext applicationContext;
-
     private String beanActorName;
-
-    public SpringActorProducer(ApplicationContext applicationContext, String beanActorName) {
-        this.applicationContext = applicationContext;
-        this.beanActorName = beanActorName;
-    }
 
     @Override
     public Actor produce() {
