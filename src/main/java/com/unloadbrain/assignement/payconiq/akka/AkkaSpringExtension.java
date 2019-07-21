@@ -21,6 +21,7 @@ public class AkkaSpringExtension extends AbstractExtensionId<AkkaSpringExtension
 
         private volatile ApplicationContext applicationContext;
 
+        // TODO: remote it, deprecated
         public void initialize(ApplicationContext applicationContext) {
             this.applicationContext = applicationContext;
         }
