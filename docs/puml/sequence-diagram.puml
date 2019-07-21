@@ -1,0 +1,23 @@
+@startuml
+
+actor "Authenticated User" as USER
+participant "Web APIs" as WebAPIs
+participant StockReactiveService as SRS
+control "AKKA" as AKKA
+participant StockActor as SA
+participant StockPersistenceService as SPS
+database "Cassandra repository" as DomainDataStore
+
+USER -> WebAPIs : GET /api/stocks\nGET /api/stocks/{id}\nPOST /api/stocks\nPUT /api/stocks/{id}
+WebAPIs -> SRS
+SRS --> AKKA : publish message to AKKA mailbox
+AKKA --> SA : Message passed to
+SA -> SPS: Save data to DB
+SPS -> DomainDataStore
+SPS -> SA
+SA -> SRS
+SRS -> WebAPIs
+WebAPIs -> USER : HTTP 2xx
+
+
+@enduml
