@@ -5,28 +5,29 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class SpringActorProducerTest {
 
     @Test
-    public void shouldProduceStockActor() {
+    public void shouldProduceStockActor() throws ClassNotFoundException {
 
         // Given
 
         Actor actorMock = mock(Actor.class);
         ApplicationContext applicationContextMock = mock(ApplicationContext.class);
-        when(applicationContextMock.getBean("stockActor")).thenReturn(actorMock);
+        when(applicationContextMock.getBean(anyString())).thenReturn(actorMock);
 
-        Class actorClassMock = actorMock.getClass();
-        when(applicationContextMock.getType("stockActor")).thenReturn(actorClassMock);
+        Class actorClassMock = Class.forName("akka.actor.AbstractActor");
+        when(applicationContextMock.getType(anyString())).thenReturn(actorClassMock);
 
         SpringActorProducer springActorProducer
-                = new SpringActorProducer(applicationContextMock, "stockActor");
+                = new SpringActorProducer(applicationContextMock, anyString());
 
         // When
-        Actor actor= springActorProducer.produce();
+        Actor actor = springActorProducer.produce();
         Class<? extends Actor> actorClass = springActorProducer.actorClass();
 
         // Then
